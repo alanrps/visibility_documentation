@@ -1,37 +1,158 @@
-## Welcome to GitHub Pages
+# Documentation
 
-You can use the [editor on GitHub](https://github.com/alanrps/visibility.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+## Authentication
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+`POST /authenticate`
 
-### Markdown
+#### Fields Body
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+| field    | description      | required | example |
+| -------- | ---------------- | -------- | ------- |
+| email    | email of user    | Yes      | 1       |
+| password | password of user | Yes      | PLACE   |
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+#### Request Body
+```
+{
+    "email": "matheus@gmail.com",
+    "password": "123456"
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+#### Response Body
 
-### Jekyll Themes
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJadwq6MSwiZW1haWwiOiJhbGFuc2FudGFuYUBhbHVub3MudXRmcHIuZWR1LmJyIiwicGhvbmVfbnVtYmVyIjoiOTk4MDgtMzAxNyIsImlhdCI6MTYzMzcyOTk5MiwiZXhwIjoxNjMzOTAyNzkyfQ.pYTLcIAEnwONb9R53pJplQL2s_fthALWPIcq4aMUf2Q"
+}
+```
+#### Responses Code
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/alanrps/visibility.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+| code | description |
+| ---- | ----------- |
+| 201  | created     |
 
-### Support or Contact
+## Markers
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Create Markers
+
+
+`POST /markers`
+
+#### Fields Body
+
+| field           | description           | required | types                                                                                        | example                         |
+| --------------- | --------------------- | -------- | -------------------------------------------------------------------------------------------- | ------------------------------- |
+| user_id         | id of user            | Yes      |                                                                                              | 1                               |
+| markers_type_id | id of type of marker  | Yes      | PLACE, WHEELCHAIR_PARKING                                                                    | PLACE                           |
+| coordinates     | coordinates of marker | Yes      |                                                                                              | POINT (-50.3826153 -28.0245769) |
+| category_id     | id of category        | No       | TRAVEL,TRANSPORT,SUPERMARKET,SERVICES,LEISURE,EDUCATION,FOOD,HOSPITALS,ACCOMMODATION,FINANCE | SERVICES                        |
+| name            | name of place         | No       |                                                                                              | Mac Burguer                     |
+| classify        | classify of place     | No       | ACCESSIBLE, NOT ACCESSIBLE, PARTIALLY                                                        | ACESSIBLE                       |
+| description     | description of place  | No       |                                                                                              | Lanchonete e petiscaria         |
+| space_type      | type of space         | No       | PRIVATE,PUBLIC                                                                               | PRIVATE                         |
+
+
+#### Request Body
+
+```
+{
+    "user_id": 5,
+    "marker": {
+        "markers_type_id": "PLACE",
+        "category_id": "EDUCATION"
+    },
+    "point_data": {
+        "latitude": -28.0245769,
+        "longitude": -50.3826153
+    },
+    "place": {
+        "name": "Mac Burguer",
+        "classify": "ACCESSIBLE",
+        "description": "Lanchonete e petiscaria",
+        "space_type": "PRIVATE" 
+    }
+}
+```
+
+#### Response Body
+
+```
+{
+    "id": 56,
+    "user_id": 1,
+    "markers_type_id": "PLACE",
+    "coordinates": "POINT(-50.3826153 -28.0245769)"
+}
+
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 201  | created     |
+
+
+### Get Markers with current position
+
+`GET /markers/:current_position`
+
+#### Request Params
+
+| field            | description              | example                         |
+| ---------------- | ------------------------ | ------------------------------- |
+| current_position | current position of user | POINT (-50.3826153 -28.0245769) |
+
+
+#### Response Body
+
+```
+[
+    {
+        "id": 30,
+        "user_id": 1,
+        "markers_type_id": "PLACE",
+        "coordinates": "POINT(-51.382978 -26.024556)",
+        "last_updated": null,
+        "denounced": false,
+        "category_id": "EDUCATION"
+    }
+]
+
+```
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | ok          |
+
+
+### Get Markers with id
+`GET /markers/places/:marker_id`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| marker_id | id of marker | 1       |
+
+
+### Response Body
+
+```
+{
+    "id": 44,
+    "marker_id": 42,
+    "name": "terreno",
+    "classify": "PARTIALLY",
+    "space_type": "PRIVATE",
+    "description": "belo terreno"
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | ok          |
