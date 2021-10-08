@@ -144,10 +144,10 @@
 {
     "id": 44,
     "marker_id": 42,
-    "name": "terreno",
+    "name": "Mac Burguer",
     "classify": "PARTIALLY",
     "space_type": "PRIVATE",
-    "description": "belo terreno"
+    "description": "Lanchonete e petiscaria"
 }
 ```
 
