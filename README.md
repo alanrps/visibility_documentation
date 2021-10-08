@@ -1,4 +1,4 @@
-# Documentation
+# Visibility Documentation
 
 ## Authentication
 
