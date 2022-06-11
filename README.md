@@ -30,13 +30,10 @@
 
 | code | description |
 | ---- | ----------- |
-| 201  | created     |
+| 200  | OK          |
 
 ## Markers
-
-### Create Markers
-
-
+### Post Marker
 `POST /markers`
 
 #### Fields Body
@@ -125,7 +122,7 @@
 
 | code | description |
 | ---- | ----------- |
-| 200  | ok          |
+| 200  | OK          |
 
 
 ### Get Markers with id
@@ -138,7 +135,7 @@
 | marker_id | id of marker | 1       |
 
 
-### Response Body
+#### Response Body
 
 ```
 {
@@ -155,4 +152,233 @@
 
 | code | description |
 | ---- | ----------- |
-| 200  | ok          |
+| 200  | OK          |
+
+## Gamification
+### Get Ranking
+`GET /ranking`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| page      | page of users| 1       |
+
+#### Response Body
+
+```
+{
+
+    "pagination": {
+        "total": 15,
+        "lastPage": 2,
+        "perPage": 10,
+        "currentPage": 1,
+        "from": 0,
+        "to": 10
+    },
+
+    "data": [
+        {
+            "name": "Rodrigo Santos",
+            "weekly_points": 1000,
+            "level": 1
+        },
+        {
+            "name": "kawamoto",
+            "weekly_points": 800,
+            "level": 2
+        }
+    ]
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+
+
+### Patch Information Amount
+`PATCH /users/:id/informationAmount`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of users  | 1       |
+
+#### Response Body
+
+```
+{
+    "updatedProperties": ["wheelchair_parking"],
+    "points": 10
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Get Information Amount
+`GET /users/:id/informationAmount`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of users  | 1       |
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Get achievements
+`GET /users/:id/achievements`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of users  | 1       |
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Get comments
+`GET /markers/:id/comments`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of comment| 1       |
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Post comment
+`POST /markers/:id/comments`
+
+```
+{
+    "userId": 1,
+    "markerId": 1,
+    "description": "Parabéns!"
+}
+```
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of comment| 1       |
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+
+## Users
+### Patch user
+`PATCH /users/:id(\\d+)`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of user   | 1       |
+
+#### Response Body
+
+```
+{
+    "name": "carlos@gmail.com",
+    "phone_number": "44998433695",
+    "birth_date": "1998-01-01"
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Get user
+`GET /users/:id`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| id        | id of user   | 1       |
+
+#### Response Body
+
+```
+{
+    "id": 1,
+    "name": "ADMIN",
+    "phone_number": "99702-3015",
+    "birth_date": "1992-12-21T02:00:00.000Z"
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+
+### Update password
+`PATCH /users/passwords/:user_id`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| user_id   | id of user   | 1       |
+
+#### Response Body
+
+```
+{
+    "current_password": "masterkey",
+    "new_password": "123456"
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 200  | OK          |
+### Recovery password
+`PATCH /users/:email`
+
+#### Request Params
+
+| field     | description  | example |
+| --------- | ------------ | ------- |
+| email     | email of user| 1       |
+
+#### Response Body
+
+```
+{}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 204  | OK          |
