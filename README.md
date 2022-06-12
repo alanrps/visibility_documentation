@@ -1,5 +1,4 @@
 # Visibility Documentation
-
 ## Authentication
 
 `POST /authenticate`
@@ -9,12 +8,12 @@
 | field    | description      | required | example |
 | -------- | ---------------- | -------- | ------- |
 | email    | email of user    | Yes      | 1       |
-| password | password of user | Yes      | PLACE   |
+| password | password of user | Yes      | 123456   |
 
 #### Request Body
 ```
 {
-    "email": "matheus@gmail.com",
+    "email": "luca123@gmail.com",
     "password": "123456"
 }
 ```
@@ -286,7 +285,7 @@
 
 | code | description |
 | ---- | ----------- |
-| 200  | OK          |
+| 201  | created          |
 
 ## Users
 ### Patch user
@@ -313,6 +312,39 @@
 | code | description |
 | ---- | ----------- |
 | 200  | OK          |
+### Post user
+`PATCH /users`
+
+#### Request Body
+```
+{
+    "name": "lucas silvano",
+    "birthDate": "1998-01-01",
+    "gender": "MALE",
+	"phoneNumber": "4499887565",
+	"email": "lucas321@gmail.com",
+	"password": "123456"
+}
+```
+
+#### Response Body
+
+```
+{
+	"id": 2
+    "birth_date": "1998-01-01",
+    "gender": "MALE",
+	"phone_number": "4499887565",
+	"email": "lucas321@gmail.com",
+	"password": "123456"
+}
+```
+
+#### Responses Code
+
+| code | description |
+| ---- | ----------- |
+| 201  | created          |
 ### Get user
 `GET /users/:id`
 
@@ -364,6 +396,8 @@
 | 200  | OK          |
 ### Recovery password
 `PATCH /users/:email`
+
+- Send email with new password 
 
 #### Request Params
 
