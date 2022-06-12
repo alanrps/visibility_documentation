@@ -321,9 +321,9 @@
     "name": "lucas silvano",
     "birthDate": "1998-01-01",
     "gender": "MALE",
-	"phoneNumber": "4499887565",
-	"email": "lucas321@gmail.com",
-	"password": "123456"
+    "phoneNumber": "4499887565",
+    "email": "lucas321@gmail.com",
+    "password": "123456"
 }
 ```
 
